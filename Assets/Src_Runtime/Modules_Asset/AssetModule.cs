@@ -16,14 +16,20 @@ namespace GameClient {
 
         public void Ctor() {
             entityDict = new Dictionary<string, GameObject>();
+
+            roleDict = new Dictionary<int, RoleTM>();
         }
 
         public async Task LoadAll() {
             await Entity_Load();
+
+            await RoleTM_Load();
         }
 
         public void UnLoadAll() {
             Entity_Release();
+
+            Role_Release();
         }
 
         #region Entity
@@ -48,11 +54,11 @@ namespace GameClient {
         }
 
         public bool Entity_Role_TryGet(out GameObject role) {
-            return entityDict.TryGetValue("entity_role", out role);
+            return entityDict.TryGetValue("RoleEntity", out role);
         }
         #endregion
 
-        #region == Role ==
+        #region Role
         async Task RoleTM_Load() {
             AssetLabelReference labelReference = new AssetLabelReference();
             labelReference.labelString = "So_Role";
