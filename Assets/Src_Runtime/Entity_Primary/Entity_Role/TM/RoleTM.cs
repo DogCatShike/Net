@@ -6,5 +6,8 @@ namespace GameClient {
     public class RoleTM {
         public int typeID;
         public string name;
+
+        public float moveSpeed;
+        public float jumpForce;
     }
 }

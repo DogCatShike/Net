@@ -7,6 +7,7 @@ namespace GameClient {
         Vector2 moveAxis;
         public Vector2 MoveAxis => moveAxis;
         public void Set_MoveAxis(Vector2 value) => moveAxis = value;
+        public float Get_XAxis() => moveAxis.x;
 
         // 跳跃
         bool isJump;

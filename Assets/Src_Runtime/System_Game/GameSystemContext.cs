@@ -7,6 +7,7 @@ namespace GameClient.System_Game {
         public GameEntity gameEntity;
 
         public AssetModule assetModule;
+        public InputModule inputModule;
 
         public RoleRepo roleRepo;
 
@@ -15,8 +16,9 @@ namespace GameClient.System_Game {
             roleRepo = new RoleRepo();
         }
 
-        public void Inject(AssetModule assetModule) {
+        public void Inject(AssetModule assetModule, InputModule inputModule) {
             this.assetModule = assetModule;
+            this.inputModule = inputModule;
         }
     }
 }

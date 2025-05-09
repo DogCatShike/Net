@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4647970843696655114}
   - component: {fileID: 3588213947588160541}
   - component: {fileID: 736217182251886738}
+  - component: {fileID: 26226441594019550}
   m_Layer: 0
   m_Name: RoleEntity
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
     entityType: 0
     entityID: 0
   typeID: 0
+  rb: {fileID: 26226441594019550}
 --- !u!212 &736217182251886738
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -102,3 +104,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &26226441594019550
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754464033476835831}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -24,6 +24,9 @@ namespace GameClient {
             role.idSig = new IDSignature(EntityType.Role, typeID);
             role.typeID = typeID;
 
+            role.Set_MoveSpeed(tm.moveSpeed);
+            role.Set_JumpForce(tm.jumpForce);
+
             return role;
         }
         #endregion

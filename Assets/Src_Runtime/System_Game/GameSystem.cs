@@ -11,8 +11,8 @@ namespace GameClient.System_Game {
             ctx = new GameSystemContext();
         }
 
-        public void Inject(AssetModule assetModule) {
-            ctx.Inject(assetModule);
+        public void Inject(AssetModule assetModule, InputModule inputModule) {
+            ctx.Inject(assetModule, inputModule);
         }
 
         public void Enter() {
@@ -59,7 +59,12 @@ namespace GameClient.System_Game {
         }
 
         void LogicTick(float dt) {
-            
+            int len = ctx.roleRepo.TakeAll(out RoleEntity[] roles);
+            for (int i = 0; i < len; i++) {
+                var role = roles[i];
+                RoleDomain.Input_Record(ctx, role);
+                RoleDomain.Loco_Any_Execute(role, dt);
+            }
         }
 
         void LastTick(float dt) {

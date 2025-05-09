@@ -19,10 +19,9 @@ namespace GameClient {
             inputModule.Ctor();
 
             // Inject
-            gameSystem.Inject(assetModule);
+            gameSystem.Inject(assetModule, inputModule);
 
-            Action action = async () =>
-            {
+            Action action = async () => {
                 await assetModule.LoadAll();
 
                 gameSystem.Enter();
@@ -31,25 +30,23 @@ namespace GameClient {
             action.Invoke();
         }
 
-        void Update()
-        {
+        void Update() {
             float dt = Time.deltaTime;
 
-            // gameSystem.Tick(dt);
+            inputModule.Process();
+
+            gameSystem.Tick(dt);
         }
 
-        void OnApplicationQuit()
-        {
+        void OnApplicationQuit() {
             TearDown();
         }
 
-        void OnDestroy()
-        {
+        void OnDestroy() {
             TearDown();
         }
 
-        void TearDown()
-        {
+        void TearDown() {
             assetModule.UnLoadAll();
         }
     }
