@@ -17,7 +17,15 @@ namespace GameClient {
         float jumpForce;
         public void Set_JumpForce(float value) => jumpForce = value;
 
+        int jumpTimes;
+        int maxJumpTimes;
+        public void Set_MaxJumpTimes(int value) => maxJumpTimes = value;
+        public bool canJump => jumpTimes < maxJumpTimes;
+
         float faceAxis;
+
+        bool isCollision;
+        public bool IsCollision => isCollision;
 
         // Com
         [SerializeField] RoleInputComponent inputComponent;
@@ -31,6 +39,8 @@ namespace GameClient {
             moveConponent = new RoleMoveComponent();
 
             moveConponent.Inject(rb);
+
+            jumpTimes = 0;
         }
 
         public void Reuse() {
@@ -52,6 +62,11 @@ namespace GameClient {
 
         public void Jump() {
             moveConponent.Jump(jumpForce);
+            jumpTimes += 1;
+        }
+
+        public void Jump_Reset() {
+            jumpTimes = 0;
         }
 
         public void Fall(float garv) {
@@ -73,6 +88,26 @@ namespace GameClient {
 
         public void Set_State(RoleState newState) {
             state = newState;
+        }
+
+        public void Add_State(RoleState newState) {
+            state |= newState;
+        }
+
+        public void Remove_State(RoleState newState) {
+            state &= ~newState;
+        }
+
+        void OnCollisionEnter2D(Collision2D collision) {
+            isCollision = true;
+
+            if (collision.gameObject.CompareTag("Ground")) {
+                Jump_Reset();
+            }
+        }
+
+        void OnCollisionExit2D(Collision2D collision) {
+            isCollision = false;
         }
         #endregion
     }

@@ -8,28 +8,58 @@ namespace GameClient.System_Game {
 
             float xAxis = input.Get_XAxis();
 
-            switch (role.State) {
-                case RoleState.Fall:
-                    Loco_Fall(role, garv, dt);
-                    break;
+            Loco_ChangeState(role, input);
 
+            // TODO: 这里状态机不能这么写, 不智能
+            // switch (role.State) {
+            //     case RoleState.Jump:
+            //         Loco_Jump(role, dt);
+            //         break;
 
-                case RoleState.Move:
-                    Loco_Move(role, xAxis, dt);
-                    break;
+            //     case RoleState.Move:
+            //         Loco_Move(role, xAxis, dt);
+            //         break;
 
-                case RoleState.Jump:
-                    Loco_Jump(role, dt);
-                    break;
+            //     case RoleState.Fall:
+            //         Loco_Fall(role, garv, dt);
+            //         break;
 
-                case RoleState.Climb:
+            //     case RoleState.Climb:
 
-                    break;
-                case RoleState.Idle:
-                    break;
+            //         break;
+            //     case RoleState.Idle:
+            //         break;
 
-                default:
-                    break;
+            //     default:
+            //         break;
+            // }
+
+            if (role.State.HasFlag(RoleState.Jump)) {
+                Loco_Jump(role, dt);
+            } else if (role.State.HasFlag(RoleState.Fall)) {
+                Loco_Fall(role, garv, dt);
+            }
+
+            if (role.State.HasFlag(RoleState.Move)) {
+                Loco_Move(role, xAxis, dt);
+            }
+        }
+
+        public static void Loco_ChangeState(RoleEntity role, RoleInputComponent input) {
+            if (!role.IsCollision) {
+                role.Add_State(RoleState.Fall);
+            }
+
+            if (input.IsJump && role.canJump) {
+                role.Add_State(RoleState.Jump);
+            }
+            
+            if (role.State.HasFlag(RoleState.Jump) && !role.canJump) {
+                role.Remove_State(RoleState.Jump);
+            }
+
+            if (input.IsMove) {
+                role.Add_State(RoleState.Move);
             }
         }
 

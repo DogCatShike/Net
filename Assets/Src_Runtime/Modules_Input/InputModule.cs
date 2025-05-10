@@ -7,6 +7,10 @@ public class InputModule : MonoBehaviour {
 
     Vector2 moveAxis;
     public Vector2 MoveAxis => moveAxis;
+    public bool IsMove => moveAxis.x != 0;
+
+    bool isJump;
+    public bool IsJump => isJump;
 
     public void Ctor() {
         input = new InputControls();
@@ -19,6 +23,11 @@ public class InputModule : MonoBehaviour {
         // Move
         {
             moveAxis.x = world.MoveRight.ReadValue<float>() - world.MoveLeft.ReadValue<float>();
+        }
+        
+        // Jump
+        {
+            isJump = world.Jump.WasPerformedThisFrame();
         }
     }
 }

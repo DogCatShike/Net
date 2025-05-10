@@ -9,5 +9,6 @@ namespace GameClient {
 
         public float moveSpeed;
         public float jumpForce;
+        public int maxJumpTimes;
     }
 }

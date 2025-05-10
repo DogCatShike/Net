@@ -26,6 +26,7 @@ namespace GameClient {
 
             role.Set_MoveSpeed(tm.moveSpeed);
             role.Set_JumpForce(tm.jumpForce);
+            role.Set_MaxJumpTimes(tm.maxJumpTimes);
 
             role.Set_State(RoleState.Idle);
 

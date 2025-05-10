@@ -15,6 +15,8 @@ namespace GameClient.System_Game {
             var input = ctx.inputModule;
 
             inputCom.Set_MoveAxis(input.MoveAxis);
+            inputCom.Set_IsMove(input.IsMove);
+            inputCom.Set_IsJump(input.IsJump);
         }
         #endregion
     }
