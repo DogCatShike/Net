@@ -8,6 +8,9 @@ namespace GameClient {
         public int typeID;
         [SerializeField] Rigidbody2D rb;
 
+        RoleState state;
+        public RoleState State => state;
+
         // 属性
         float moveSpeed;
         public void Set_MoveSpeed(float value) => moveSpeed = value;
@@ -16,6 +19,7 @@ namespace GameClient {
 
         float faceAxis;
 
+        // Com
         [SerializeField] RoleInputComponent inputComponent;
         public RoleInputComponent InputComponent => inputComponent;
 
@@ -65,6 +69,10 @@ namespace GameClient {
                 scale.x = -1;
             }
             transform.localScale = scale;
+        }
+
+        public void Set_State(RoleState newState) {
+            state = newState;
         }
         #endregion
     }

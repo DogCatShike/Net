@@ -7,6 +7,8 @@ namespace GameClient.System_Game {
 
         GameSystemContext ctx;
 
+        const float GRAVITY = 9.8f;
+
         public GameSystem() {
             ctx = new GameSystemContext();
         }
@@ -63,7 +65,7 @@ namespace GameClient.System_Game {
             for (int i = 0; i < len; i++) {
                 var role = roles[i];
                 RoleDomain.Input_Record(ctx, role);
-                RoleDomain.Loco_Any_Execute(role, dt);
+                RoleDomain.Loco_Any_Execute(role, dt, GRAVITY);
             }
         }
 

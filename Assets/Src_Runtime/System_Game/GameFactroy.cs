@@ -27,6 +27,8 @@ namespace GameClient {
             role.Set_MoveSpeed(tm.moveSpeed);
             role.Set_JumpForce(tm.jumpForce);
 
+            role.Set_State(RoleState.Idle);
+
             return role;
         }
         #endregion
