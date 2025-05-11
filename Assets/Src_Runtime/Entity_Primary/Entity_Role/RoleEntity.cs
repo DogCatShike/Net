@@ -95,6 +95,11 @@ namespace GameClient {
             transform.localScale = scale;
         }
 
+        public float Get_VeloY() {
+            return rb.velocity.y;
+        }
+        #endregion
+
         public void Set_State(RoleState newState) {
             state = newState;
         }
@@ -130,6 +135,5 @@ namespace GameClient {
                 canClimb = false;
             }
         }
-        #endregion
     }
 }

@@ -38,12 +38,14 @@ namespace GameClient.System_Game {
                 Loco_Move(role, xAxis, dt);
             }
 
-            if (role.State.HasFlag(RoleState.Climb)) {
-                Loco_Climb(role, yAxis, dt);
-            } else if (role.State.HasFlag(RoleState.Jump)) {
-                Loco_Jump(role, dt);
-            } else if (role.State.HasFlag(RoleState.Fall)) {
+            if (role.State.HasFlag(RoleState.Fall)) {
                 Loco_Fall(role, garv, dt);
+            }
+
+            if (role.State.HasFlag(RoleState.Jump)) {
+                Loco_Jump(role, dt);
+            } else if (role.State.HasFlag(RoleState.Climb)) {
+                Loco_Climb(role, yAxis, dt);
             }
         }
 
@@ -62,12 +64,13 @@ namespace GameClient.System_Game {
                 if (role.canJump) {
                     role.Add_State(RoleState.Jump);
                 }
-            } else {
-                role.Remove_State(RoleState.Jump);
             }
 
             if (role.State.HasFlag(RoleState.Jump) && !role.canJump) {
-                role.Remove_State(RoleState.Jump);
+                float axisY = role.Get_VeloY();
+                if (axisY < 0) {
+                    role.Remove_State(RoleState.Jump);
+                }
             }
 
             if (input.IsMove) {
@@ -89,6 +92,7 @@ namespace GameClient.System_Game {
 
         public static void Loco_Jump(RoleEntity role, float dt) {
             if (dt <= 0) { return; }
+            if (!role.canJump) { return; }
 
             role.Jump();
         }
