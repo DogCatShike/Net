@@ -24,6 +24,11 @@ public class InputModule : MonoBehaviour {
         {
             moveAxis.x = world.MoveRight.ReadValue<float>() - world.MoveLeft.ReadValue<float>();
         }
+
+        // Climb
+        {
+            moveAxis.y = world.ClimbUp.ReadValue<float>() - world.ClimbDown.ReadValue<float>();
+        }
         
         // Jump
         {

@@ -8,6 +8,7 @@ namespace GameClient {
         public Vector2 MoveAxis => moveAxis;
         public void Set_MoveAxis(Vector2 value) => moveAxis = value;
         public float Get_XAxis() => moveAxis.x;
+        public float Get_YAxis() => moveAxis.y;
         
         bool isMove;
         public bool IsMove => isMove;

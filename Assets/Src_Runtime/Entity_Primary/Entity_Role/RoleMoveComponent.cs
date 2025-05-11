@@ -16,6 +16,12 @@ namespace GameClient {
             rb.velocity = velo;
         }
 
+        public void Climb(float yAxis, float climbSpeed) {
+            var velo = rb.velocity;
+            velo.y = yAxis * climbSpeed;
+            rb.velocity = velo;
+        }
+
         public void Jump(float jumpForce) {
             var velo = rb.velocity;
             velo.y = jumpForce;

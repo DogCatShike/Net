@@ -7,6 +7,7 @@ namespace GameClient.System_Game {
             var input = role.InputComponent;
 
             float xAxis = input.Get_XAxis();
+            float yAxis = input.Get_YAxis();
 
             Loco_ChangeState(role, input);
 
@@ -33,27 +34,38 @@ namespace GameClient.System_Game {
             //     default:
             //         break;
             // }
+            if (role.State.HasFlag(RoleState.Move)) {
+                Loco_Move(role, xAxis, dt);
+            }
 
-            if (role.State.HasFlag(RoleState.Jump)) {
+            if (role.State.HasFlag(RoleState.Climb)) {
+                Loco_Climb(role, yAxis, dt);
+            } else if (role.State.HasFlag(RoleState.Jump)) {
                 Loco_Jump(role, dt);
             } else if (role.State.HasFlag(RoleState.Fall)) {
                 Loco_Fall(role, garv, dt);
             }
-
-            if (role.State.HasFlag(RoleState.Move)) {
-                Loco_Move(role, xAxis, dt);
-            }
         }
 
         public static void Loco_ChangeState(RoleEntity role, RoleInputComponent input) {
+            if (role.CanClimb) {
+                role.Add_State(RoleState.Climb);
+            } else {
+                role.Remove_State(RoleState.Climb);
+            }
+
             if (!role.IsCollision) {
                 role.Add_State(RoleState.Fall);
             }
 
-            if (input.IsJump && role.canJump) {
-                role.Add_State(RoleState.Jump);
+            if (input.IsJump) {
+                if (role.canJump) {
+                    role.Add_State(RoleState.Jump);
+                }
+            } else {
+                role.Remove_State(RoleState.Jump);
             }
-            
+
             if (role.State.HasFlag(RoleState.Jump) && !role.canJump) {
                 role.Remove_State(RoleState.Jump);
             }
@@ -67,6 +79,12 @@ namespace GameClient.System_Game {
             if (dt <= 0) { return; }
 
             role.Move(xAxis);
+        }
+
+        public static void Loco_Climb(RoleEntity role, float yAxis, float dt) {
+            if (dt <= 0) { return; }
+
+            role.Climb(yAxis);
         }
 
         public static void Loco_Jump(RoleEntity role, float dt) {

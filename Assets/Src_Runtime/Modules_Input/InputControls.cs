@@ -53,6 +53,24 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ClimbUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""41902d0c-3b6c-4221-8785-b676568fa822"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ClimbDown"",
+                    ""type"": ""Value"",
+                    ""id"": ""beac1afe-1351-4ed4-8c8e-6dd9dde7bbba"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -121,6 +139,50 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""979217df-bdca-4ec0-b655-5b38c032e17d"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClimbUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b3e5fa0-7e0c-4985-b374-21c641ab5d5d"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClimbUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6a59ba3-5014-41ff-99b9-bc8f17951d4d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClimbDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""643e9c97-8490-4af3-beef-48fea9a6288b"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClimbDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -132,6 +194,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_World_MoveLeft = m_World.FindAction("MoveLeft", throwIfNotFound: true);
         m_World_MoveRight = m_World.FindAction("MoveRight", throwIfNotFound: true);
         m_World_Jump = m_World.FindAction("Jump", throwIfNotFound: true);
+        m_World_ClimbUp = m_World.FindAction("ClimbUp", throwIfNotFound: true);
+        m_World_ClimbDown = m_World.FindAction("ClimbDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -196,6 +260,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_World_MoveLeft;
     private readonly InputAction m_World_MoveRight;
     private readonly InputAction m_World_Jump;
+    private readonly InputAction m_World_ClimbUp;
+    private readonly InputAction m_World_ClimbDown;
     public struct WorldActions
     {
         private @InputControls m_Wrapper;
@@ -203,6 +269,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @MoveLeft => m_Wrapper.m_World_MoveLeft;
         public InputAction @MoveRight => m_Wrapper.m_World_MoveRight;
         public InputAction @Jump => m_Wrapper.m_World_Jump;
+        public InputAction @ClimbUp => m_Wrapper.m_World_ClimbUp;
+        public InputAction @ClimbDown => m_Wrapper.m_World_ClimbDown;
         public InputActionMap Get() { return m_Wrapper.m_World; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -221,6 +289,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @ClimbUp.started += instance.OnClimbUp;
+            @ClimbUp.performed += instance.OnClimbUp;
+            @ClimbUp.canceled += instance.OnClimbUp;
+            @ClimbDown.started += instance.OnClimbDown;
+            @ClimbDown.performed += instance.OnClimbDown;
+            @ClimbDown.canceled += instance.OnClimbDown;
         }
 
         private void UnregisterCallbacks(IWorldActions instance)
@@ -234,6 +308,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @ClimbUp.started -= instance.OnClimbUp;
+            @ClimbUp.performed -= instance.OnClimbUp;
+            @ClimbUp.canceled -= instance.OnClimbUp;
+            @ClimbDown.started -= instance.OnClimbDown;
+            @ClimbDown.performed -= instance.OnClimbDown;
+            @ClimbDown.canceled -= instance.OnClimbDown;
         }
 
         public void RemoveCallbacks(IWorldActions instance)
@@ -256,5 +336,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnMoveLeft(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnClimbUp(InputAction.CallbackContext context);
+        void OnClimbDown(InputAction.CallbackContext context);
     }
 }

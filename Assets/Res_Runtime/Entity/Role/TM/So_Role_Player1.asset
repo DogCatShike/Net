@@ -16,5 +16,6 @@ MonoBehaviour:
     typeID: 1
     name: Player1
     moveSpeed: 5
+    climbSpeed: 3
     jumpForce: 5
     maxJumpTimes: 1

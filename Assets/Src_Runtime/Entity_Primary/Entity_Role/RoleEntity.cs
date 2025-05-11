@@ -14,6 +14,8 @@ namespace GameClient {
         // 属性
         float moveSpeed;
         public void Set_MoveSpeed(float value) => moveSpeed = value;
+        float climbSpeed;
+        public void Set_ClimbSpeed(float value) => climbSpeed = value;
         float jumpForce;
         public void Set_JumpForce(float value) => jumpForce = value;
 
@@ -26,6 +28,9 @@ namespace GameClient {
 
         bool isCollision;
         public bool IsCollision => isCollision;
+
+        bool canClimb;
+        public bool CanClimb => canClimb;
 
         // Com
         [SerializeField] RoleInputComponent inputComponent;
@@ -58,6 +63,10 @@ namespace GameClient {
             if (xAxis != 0 && xAxis != faceAxis) {
                 RotateFace(xAxis);
             }
+        }
+
+        public void Climb(float yAxis) {
+            moveConponent.Climb(yAxis, climbSpeed);
         }
 
         public void Jump() {
@@ -108,6 +117,18 @@ namespace GameClient {
 
         void OnCollisionExit2D(Collision2D collision) {
             isCollision = false;
+        }
+
+        void OnTriggerEnter2D(Collider2D collision) {
+            if (collision.CompareTag("Stair")) {
+                canClimb = true;
+            }
+        }
+
+        void OnTriggerExit2D(Collider2D collision) {
+            if (collision.CompareTag("Stair")) {
+                canClimb = false;
+            }
         }
         #endregion
     }

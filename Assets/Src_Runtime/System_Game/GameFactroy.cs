@@ -25,6 +25,7 @@ namespace GameClient {
             role.typeID = typeID;
 
             role.Set_MoveSpeed(tm.moveSpeed);
+            role.Set_ClimbSpeed(tm.climbSpeed);
             role.Set_JumpForce(tm.jumpForce);
             role.Set_MaxJumpTimes(tm.maxJumpTimes);
 
