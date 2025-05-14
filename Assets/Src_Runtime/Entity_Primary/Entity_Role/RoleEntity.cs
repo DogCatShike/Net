@@ -130,6 +130,14 @@ namespace GameClient {
             }
         }
 
+        void OnTriggerStay2D(Collider2D collision) {
+            if (collision.CompareTag("Stair")) {
+                if (!state.HasFlag(RoleState.Jump)) {
+                    Jump_Reset();
+                }
+            }
+        }
+
         void OnTriggerExit2D(Collider2D collision) {
             if (collision.CompareTag("Stair")) {
                 canClimb = false;
