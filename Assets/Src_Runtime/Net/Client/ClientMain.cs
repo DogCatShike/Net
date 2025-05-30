@@ -14,9 +14,10 @@ namespace GameClient {
         public static InputModule inputModule;
 
         void Awake() {
-            int port = 12345;
+            int port = 5555;
             int messageSize = 1024;
-            string ip = "127.0.0.1";
+            // string ip = "120.27.13.194"; // 服务器地址
+            string ip = "127.0.0.1"; // 回送地址
 
             client = new Client(messageSize);
             client.Connect(ip, port);

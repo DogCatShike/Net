@@ -8,7 +8,7 @@ namespace GameServer {
         bool isTearDown;
 
         void Awake() {
-            int port = 12345;
+            int port = 5555;
             int messageSize = 1024;
 
             server = new Server(messageSize);
