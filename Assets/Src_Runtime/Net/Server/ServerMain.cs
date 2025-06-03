@@ -30,6 +30,7 @@ namespace GameServer {
                 int typeID = MessageHelper.ReadHeader(data.Array);
                 if (typeID == MessageConst.SpawnRole_Req) {
                     // SpawnRoleReqMessage
+                    Debug.Log("[server]SpawnRole_Req " + connId);
                     SpawnRoleReqMessage req = MessageHelper.ReadData<SpawnRoleReqMessage>(data.Array);
                     OnSpawnRole(req);
                 } else {

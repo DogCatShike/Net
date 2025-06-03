@@ -2,6 +2,7 @@ using System;
 using GameClient.System_Game;
 using UnityEngine;
 using Telepathy;
+using Protocol;
 
 namespace GameClient {
     public class ClientMain : MonoBehaviour {
@@ -27,7 +28,14 @@ namespace GameClient {
             };
 
             client.OnData += (data) => {
-                Debug.Log("[Client] data: " + data.Count + " bytes");
+                int typeID = MessageHelper.ReadHeader(data.Array);
+                if (typeID == MessageConst.SpawnRole_Bro) {
+                    // SpawnRoleBroMessage
+                    var msg = MessageHelper.ReadData<SpawnRoleBroMessage>(data.Array);
+                    OnSpawn(msg);
+                } else {
+                    Debug.LogError("[client]Unknown typeID " + typeID);
+                }
             };
 
             client.OnDisconnected += () => {
@@ -35,6 +43,7 @@ namespace GameClient {
             };
 
             Debug.Log("[Client] Connecting to " + ip + ":" + port);
+            Application.targetFrameRate = 30;
             Application.runInBackground = true;
         }
 
@@ -57,6 +66,13 @@ namespace GameClient {
             };
 
             action.Invoke();
+
+            SpawnRoleReqMessage msg = new SpawnRoleReqMessage();
+            msg.id = 0;
+            msg.position = new float[2] { 0, 0 };
+
+            byte[] data = MessageHelper.ToData(msg);
+            client.Send(data);
         }
 
         void Update() {
@@ -87,9 +103,16 @@ namespace GameClient {
 
             assetModule.UnLoadAll();
 
-            if (client != null) { 
+            if (client != null) {
                 client.Disconnect();
             }
+        }
+
+        void OnSpawn(SpawnRoleBroMessage msg) {
+            Debug.Log("[Client] Spawn role: " + msg.id + " at " + msg.position[0] + ", " + msg.position[1]);
+            RoleEntity role = RoleDomain.Spawn(gameSystem.ctx, msg.id);
+            role.typeID = msg.id;
+            role.transform.position = new Vector3(msg.position[0], msg.position[1], 0);
         }
     }
 }

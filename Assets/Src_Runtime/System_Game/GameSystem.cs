@@ -5,7 +5,7 @@ namespace GameClient.System_Game {
     public class GameSystem {
         public SystemType systemType => SystemType.Game;
 
-        GameSystemContext ctx;
+        public GameSystemContext ctx;
 
         const float GRAVITY = 9.8f;
 
@@ -20,7 +20,7 @@ namespace GameClient.System_Game {
         public void Enter() {
             ctx.isRunning = true;
 
-            RoleDomain.Spawn(ctx, 1);
+            // RoleDomain.Spawn(ctx, 1);
         }
 
         public void Exit() {
