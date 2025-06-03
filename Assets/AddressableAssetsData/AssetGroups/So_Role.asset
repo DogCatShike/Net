@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - So_Role
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38aa154e58a50494599251f9fcc6c6b4
+    m_Address: So_Role_Player2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - So_Role
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 55edb801a4304254da6cfc45e5ac0fe4, type: 2}
   m_SchemaSet:

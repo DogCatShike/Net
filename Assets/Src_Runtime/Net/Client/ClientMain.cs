@@ -58,7 +58,7 @@ namespace GameClient {
             inputModule.Ctor();
 
             // Inject
-            gameSystem.Inject(assetModule, inputModule);
+            gameSystem.Inject(assetModule, inputModule, client);
 
             Action action = async () => {
                 await assetModule.LoadAll();
@@ -67,13 +67,6 @@ namespace GameClient {
             };
 
             action.Invoke();
-
-            SpawnRoleReqMessage msg = new SpawnRoleReqMessage();
-            msg.id = 0;
-            msg.position = new float[2] { 0, 0 };
-
-            byte[] data = MessageHelper.ToData(msg);
-            client.Send(data);
         }
 
         void Update() {

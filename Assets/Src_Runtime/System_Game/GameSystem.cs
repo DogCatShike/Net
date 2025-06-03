@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using Protocol;
+using Telepathy;
 
 namespace GameClient.System_Game {
     public class GameSystem {
@@ -13,14 +15,20 @@ namespace GameClient.System_Game {
             ctx = new GameSystemContext();
         }
 
-        public void Inject(AssetModule assetModule, InputModule inputModule) {
-            ctx.Inject(assetModule, inputModule);
+        public void Inject(AssetModule assetModule, InputModule inputModule, Client client) {
+            ctx.Inject(assetModule, inputModule, client);
         }
 
         public void Enter() {
             ctx.isRunning = true;
 
             // RoleDomain.Spawn(ctx, 1);
+            SpawnRoleReqMessage msg = new SpawnRoleReqMessage();
+            msg.id = 1;
+            msg.position = new float[2] { 0, 0 };
+
+            byte[] data = MessageHelper.ToData(msg);
+            ctx.client.Send(data);
         }
 
         public void Exit() {

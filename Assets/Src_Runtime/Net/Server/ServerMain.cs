@@ -33,7 +33,7 @@ namespace GameServer {
                     // SpawnRoleReqMessage
                     Debug.Log("[server]SpawnRole_Req " + connId);
                     SpawnRoleReqMessage req = MessageHelper.ReadData<SpawnRoleReqMessage>(data.Array);
-                    OnSpawnRole(req);
+                    OnSpawnRole(req, connId);
                 } else {
                     Debug.LogError("[server]Unknown typeID " + typeID);
                 }
@@ -77,12 +77,12 @@ namespace GameServer {
             }
         }
 
-        void OnSpawnRole(SpawnRoleReqMessage req) {
+        void OnSpawnRole(SpawnRoleReqMessage req, int connId) {
             for (int i = 0; i < clients.Count; i++) {
                 int clientID = clients[i];
                 // 广播给其他人
                 SpawnRoleBroMessage bro = new SpawnRoleBroMessage();
-                bro.id = req.id;
+                bro.id = connId; // 不该这样写, id就没用了
                 bro.position = req.position;
 
                 byte[] data = MessageHelper.ToData(bro);

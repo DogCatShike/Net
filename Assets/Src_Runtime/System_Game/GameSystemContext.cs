@@ -1,4 +1,5 @@
 using System;
+using Telepathy;
 using UnityEngine;
 
 namespace GameClient.System_Game {
@@ -11,14 +12,17 @@ namespace GameClient.System_Game {
 
         public RoleRepo roleRepo;
 
+        public Client client;
+
         public GameSystemContext() {
             gameEntity = new GameEntity();
             roleRepo = new RoleRepo();
         }
 
-        public void Inject(AssetModule assetModule, InputModule inputModule) {
+        public void Inject(AssetModule assetModule, InputModule inputModule, Client client) {
             this.assetModule = assetModule;
             this.inputModule = inputModule;
+            this.client = client;
         }
     }
 }
