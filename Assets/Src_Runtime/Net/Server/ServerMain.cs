@@ -12,7 +12,8 @@ namespace GameServer {
         List<int> clients = new List<int>();
 
         void Awake() {
-            int port = 5555;
+            // int port = 5555;
+            int port = 12345; // 不知道为什么5555连不上
             int messageSize = 1024;
 
             server = new Server(messageSize);

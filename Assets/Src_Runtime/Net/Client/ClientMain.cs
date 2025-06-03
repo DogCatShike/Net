@@ -15,7 +15,8 @@ namespace GameClient {
         public static InputModule inputModule;
 
         void Awake() {
-            int port = 5555;
+            // int port = 5555;
+            int port = 12345; // 不知道为什么5555连不上
             int messageSize = 1024;
             // string ip = "120.27.13.194"; // 服务器地址
             string ip = "127.0.0.1"; // 回送地址
