@@ -11,6 +11,8 @@ namespace GameServer {
 
         List<int> clients = new List<int>();
 
+        List<SpawnRoleBroMessage> roles = new List<SpawnRoleBroMessage>();
+
         void Awake() {
             // int port = 5555;
             int port = 12345; // 不知道为什么5555连不上
@@ -24,6 +26,13 @@ namespace GameServer {
                 Debug.Log("[Server] Connected " + connId);
 
                 clients.Add(connId);
+
+                for (int i = 0; i < roles.Count; i++) {
+                    // 向新连接的客户端发送已存在的角色
+                    SpawnRoleBroMessage bro = roles[i];
+                    byte[] data = MessageHelper.ToData(bro);
+                    server.Send(connId, data);
+                }
             };
 
             server.OnData += (connId, data) => { // 有数据到达
@@ -87,6 +96,8 @@ namespace GameServer {
 
                 byte[] data = MessageHelper.ToData(bro);
                 server.Send(clientID, data);
+
+                roles.Add(bro);
             }
         }
     }
